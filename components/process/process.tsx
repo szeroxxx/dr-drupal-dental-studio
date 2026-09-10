@@ -29,16 +29,18 @@ export function Process() {
               }
               description="What happens after you book — no surprises, and no pressure."
             />
-            <Reveal delay={0.1} className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-end">
+            <Reveal delay={0.1} className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-end lg:flex-col lg:items-start">
               <ClinicImage
                 src={media.process}
-                alt="Treatment room at the studio"
-                label="Treatment room at the studio"
-                sizes="(min-width: 640px) 18rem, 90vw"
+                alt="Dentist explaining a dental X-ray and treatment options to a patient"
+                label="Treatment consultation"
+                sizes="(min-width: 1024px) 38vw, (min-width: 640px) 18rem, 90vw"
+                illustrative
+                objectPosition="50% 45%"
                 tone="deep"
-                className="aspect-[4/3] w-full shrink-0 rounded-card border border-line sm:w-72"
+                className="aspect-[4/3] w-full shrink-0 rounded-card border border-line sm:w-72 lg:w-full"
               />
-              <p className="max-w-[12rem] text-sm leading-relaxed text-muted">
+              <p className="max-w-[12rem] text-sm leading-relaxed text-muted lg:max-w-none">
                 A simple, comfortable and transparent process.
               </p>
             </Reveal>

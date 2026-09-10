@@ -76,24 +76,29 @@ export const clinic = {
 };
 
 /**
- * Photography slots. Put real clinic photos in /public/images and set the paths here.
- * `null` renders a clearly labelled placeholder instead of stock photography.
+ * Locally bundled, licensed stock photography for the sales demo. These photos do not depict
+ * Dr. Dhrupal, the studio, its patients or treatment results. See public/images/SOURCES.md.
+ * Replace with verified clinic photography and update the associated descriptions before launch.
  */
 export const media = {
-  hero: null as string | null,
-  dentist: null as string | null,
-  process: null as string | null,
+  hero: "/images/patient-consultation.webp",
+  dentist: "/images/dental-guidance.webp",
+  process: "/images/treatment-planning.webp",
+  patient: "/images/patient-welcome.webp",
+  location: "/images/calm-interior.webp",
   gallery: [
-    { label: "Reception", src: null },
-    { label: "Treatment room", src: null },
-    { label: "Consultation area", src: null },
-    { label: "Studio entrance, Ratnamani Complex", src: null },
-  ] as { label: string; src: string | null }[],
-  transformations: [
-    { label: "Smile transformation 01", before: null, after: null },
-    { label: "Smile transformation 02", before: null, after: null },
-    { label: "Smile transformation 03", before: null, after: null },
-  ] as { label: string; before: string | null; after: string | null }[],
+    { label: "A calm clinical setting", src: "/images/calm-interior.webp", alt: "Contemporary clinical interior with a reclining chair, soft lighting and dark cabinetry", position: "60% 50%" },
+    { label: "Thoughtfully equipped", src: "/images/dental-chair.webp", alt: "Modern dental chair and examination light in a bright treatment room", position: "50% 52%" },
+    { label: "Space for careful care", src: "/images/dental-suite.webp", alt: "A dental treatment suite with a chair, instruments and overhead light", position: "50% 42%" },
+    { label: "A conversation comes first", src: "/images/treatment-planning.webp", alt: "A dental professional discussing an X-ray with an adult patient", position: "50% 44%" },
+  ],
+  // Only add genuine before/after pairs with written patient consent. Empty means inspiration cards.
+  transformations: [] as { label: string; before: string; after: string }[],
+  inspiration: [
+    { label: "Everyday smile care", text: "Start with a conversation about your teeth and gums.", src: "/images/gentle-examination.webp", alt: "Dental professional preparing to examine a patient in a bright clinical room", position: "58% 50%", href: "/treatments#teeth-cleaning" },
+    { label: "A plan for your smile", text: "Explore your options, with every step explained.", src: "/images/treatment-planning.webp", alt: "Dentist and patient reviewing a dental X-ray together", position: "50% 48%", href: "/treatments#braces-and-aligners" },
+    { label: "Confidence in your care", text: "Discuss what you would like to change about your smile.", src: "/images/patient-consultation.webp", alt: "Smiling adult patient discussing dental care with a clinician", position: "60% 35%", href: "/treatments#teeth-whitening" },
+  ],
 };
 
 export type Review = {

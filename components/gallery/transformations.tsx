@@ -1,32 +1,26 @@
-import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Script, SectionHeader } from "@/components/ui/section-header";
 import { media } from "@/lib/clinic-data";
-import { BeforeAfterSlider } from "./before-after-slider";
+import { SmileGallery } from "./smile-gallery";
 
 export function Transformations() {
+  const hasResults = media.transformations.some((photo) => photo.before && photo.after);
   return (
     <section className="bg-canvas py-24 md:py-32" aria-labelledby="transformations-title">
       <Container>
         <SectionHeader
           id="transformations-title"
           align="center"
-          eyebrow="Results"
+          eyebrow={hasResults ? "Results" : "Your smile, your way"}
           title={
             <>
-              <Script>Smile</Script> transformations
+              <Script>Smile</Script> {hasResults ? "transformations" : "inspiration"}
             </>
           }
-          description="Before-and-after photos from the studio will appear here — published only with each patient's written consent."
+          description={hasResults ? "Patient photographs shared with written consent. Every treatment plan is individual." : "Explore the possibilities for your smile. These photographs illustrate dental care and are not patient results from the studio."}
         />
-        <Stagger className="mt-14 grid gap-8 md:grid-cols-3 md:gap-6">
-          {media.transformations.map((t) => (
-            <StaggerItem key={t.label}>
-              <BeforeAfterSlider label={t.label} before={t.before} after={t.after} />
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <SmileGallery />
         <div className="mt-12 flex justify-center">
           <ButtonLink href="/gallery" variant="secondary" withArrow>
             View the gallery

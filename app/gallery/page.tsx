@@ -1,17 +1,17 @@
-import { BeforeAfterSlider } from "@/components/gallery/before-after-slider";
+import { SmileGallery } from "@/components/gallery/smile-gallery";
 import { CtaBand } from "@/components/layout/cta-band";
 import { PageHero } from "@/components/layout/page-hero";
 import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { ClinicImage } from "@/components/ui/clinic-image";
 import { Container } from "@/components/ui/container";
 import { Script, SectionHeader } from "@/components/ui/section-header";
-import { clinic, media } from "@/lib/clinic-data";
+import { media } from "@/lib/clinic-data";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
-  title: "Gallery — smile transformations & the studio",
-  description: `Before-and-after smile transformations and a look inside ${clinic.name} in Thaltej, Ahmedabad.`,
+  title: "Gallery — smile inspiration & dental care",
+  description: "Explore smile care and modern clinical settings through a curated collection of illustrative dental photography.",
   path: "/gallery",
 });
 
@@ -23,6 +23,7 @@ const tileLayout = [
 ];
 
 export default function GalleryPage() {
+  const hasResults = media.transformations.some((photo) => photo.before && photo.after);
   return (
     <>
       <PageHero
@@ -30,26 +31,20 @@ export default function GalleryPage() {
         crumbs={[{ name: "Gallery", path: "/gallery" }]}
         title={
           <>
-            Smiles & the <Script>studio</Script>
+            The art of <Script>smile care</Script>
           </>
         }
-        description="Before-and-after results and a look inside the studio. Patient photos are published only with written consent."
+        description="A closer look at dental care, from the first conversation to a thoughtfully planned visit. Stock photography is illustrative and does not depict our clinic or patients."
       />
 
       <section className="bg-white py-20 md:py-28" aria-labelledby="results-title">
         <Container>
           <SectionHeader
             id="results-title"
-            title="Before & after"
-            description="Drag the handle — or focus it and use your arrow keys — to compare."
+            title={hasResults ? "Before & after" : "Smile inspiration"}
+            description={hasResults ? "Patient photos shared with written consent. Drag the handle or use your arrow keys to compare." : "Care begins with understanding your smile. Explore the treatments that may be part of your individual plan."}
           />
-          <Stagger className="mt-12 grid gap-8 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-            {media.transformations.map((t) => (
-              <StaggerItem key={t.label}>
-                <BeforeAfterSlider label={t.label} before={t.before} after={t.after} />
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <SmileGallery />
         </Container>
       </section>
 
@@ -59,23 +54,28 @@ export default function GalleryPage() {
             id="studio-title"
             title={
               <>
-                Inside the <Script>studio</Script>
+                Space for <Script>thoughtful care</Script>
               </>
             }
-            description={`${clinic.address.street}, ${clinic.address.locality}, ${clinic.address.city}.`}
+            description="Modern dental settings and moments of care. This collection uses representative photography, rather than photographs of Dr. Dhrupal's Dental Studio."
           />
           <Stagger className="mt-12 grid auto-rows-[11rem] grid-cols-2 gap-4 md:auto-rows-[15rem] md:grid-cols-4">
             {media.gallery.map((photo, i) => (
               <StaggerItem key={photo.label} className={cn(tileLayout[i % tileLayout.length])}>
-                <ClinicImage
-                  src={photo.src}
-                  alt={`${photo.label} at ${clinic.name}`}
-                  label={photo.label}
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  tone={i % 2 ? "deep" : "brand"}
-                  compact={i !== 0}
-                  className="size-full rounded-card border border-line"
-                />
+                <figure className="relative size-full overflow-hidden rounded-card border border-line">
+                  <ClinicImage
+                    src={photo.src}
+                    alt={`${photo.alt} — representative photography`}
+                    label={photo.label}
+                    sizes={i === 0 || i === 3 ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 25vw, 50vw"}
+                    objectPosition={photo.position}
+                    className="size-full"
+                  />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent px-4 pb-4 pt-12 text-white">
+                    <span className="block text-sm font-semibold">{photo.label}</span>
+                    <span className="mt-1 block text-[10px] tracking-[0.04em] text-white/90">Representative photography</span>
+                  </figcaption>
+                </figure>
               </StaggerItem>
             ))}
           </Stagger>

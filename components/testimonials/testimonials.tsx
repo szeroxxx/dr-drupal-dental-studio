@@ -1,27 +1,30 @@
-import { ArrowUpRight, Quote } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { ClinicImage } from "@/components/ui/clinic-image";
 import { GoogleIcon } from "@/components/ui/icons";
 import { Script, SectionHeader } from "@/components/ui/section-header";
 import { Stars } from "@/components/ui/stars";
-import { clinic, reviews } from "@/lib/clinic-data";
+import { clinic, media, reviews } from "@/lib/clinic-data";
 import { ReviewCarousel } from "./review-carousel";
 
 function ReviewsInvitation() {
   return (
-    <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-canvas p-8 md:p-12">
-      <div aria-hidden className="absolute -right-24 -top-24 size-72 rounded-full border border-brand-200/60" />
-      <Quote aria-hidden className="relative size-10 text-brand-500" />
-      <p className="relative mt-8 text-balance font-serif text-[1.7rem] leading-[1.22] text-ink md:text-[2.15rem]">
-        Every review of the studio is written by a patient, in their own words — so we&apos;d rather you read them
-        on Google than have us paraphrase them here.
-      </p>
-      <div className="relative mt-auto flex flex-wrap items-center gap-4 pt-10">
-        <ButtonLink href={clinic.links.googleProfile} withArrow>
-          Read patient reviews
-        </ButtonLink>
-        <span className="text-sm text-muted">Opens our Google Business Profile</span>
+    <div className="grid h-full overflow-hidden rounded-3xl border border-line bg-canvas sm:grid-cols-[0.8fr_1fr]">
+      <ClinicImage src={media.patient} alt="A patient and dental professional greeting each other in a treatment room" label="A warm welcome" illustrative objectPosition="50% 36%" sizes="(min-width: 1024px) 26vw, (min-width: 640px) 40vw, 90vw" className="aspect-[16/10] sm:aspect-auto sm:min-h-[25rem]" />
+      <div className="flex flex-col p-7 xl:p-9">
+        <p className="type-eyebrow text-brand-800">In their own words</p>
+        <p className="mt-5 text-balance font-serif text-[1.85rem] leading-[1.2] text-ink xl:text-[2.1rem]">
+          A little reassurance before your first visit.
+        </p>
+        <p className="mt-4 text-sm leading-relaxed text-muted">Read our patients&apos; experiences, shared in their own words on Google.</p>
+        <div className="mt-auto pt-7">
+          <ButtonLink href={clinic.links.googleProfile} withArrow size="sm">
+            Read patient reviews
+          </ButtonLink>
+          <p className="mt-3 text-xs text-muted">Opens our Google Business Profile</p>
+        </div>
       </div>
     </div>
   );

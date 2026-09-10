@@ -9,6 +9,7 @@ Built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, Motion, Lenis, 
 ```bash
 npm install
 npm run dev        # http://localhost:3000
+npm run dev -- --port 3100  # Dental demo when another project uses port 3000
 npm run build && npm start
 npm run lint
 ```
@@ -31,12 +32,15 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` to the produc
 
 ## Photos
 
-No clinic photography was supplied, so every image slot renders a clearly labelled **"Photo placeholder"** rather than stock imagery. To add real photos:
+The demo uses eight locally bundled, licensed Pexels photographs, optimized to WebP (about 645 KB combined). All stock scenes are marked **Illustrative photography** or **Representative photography**. They do not depict Dr. Dhrupal, the actual studio, its patients, or treatment results. Credits, source pages and license details are in [`public/images/SOURCES.md`](public/images/SOURCES.md).
+
+To add verified clinic photography:
 
 1. Put the files in `public/images/` (JPG/WebP, at least 1600px on the long edge for the hero).
-2. Set the paths in `media` inside `lib/clinic-data.ts` (for example `hero: "/images/hero.jpg"`).
+2. Set paths in `media` inside `lib/clinic-data.ts`, then update each image's alt text, crop and stock caption only after verifying the replacement.
+3. Add actual before/after pairs to `media.transformations` only with written patient consent. The homepage and gallery then render the existing interactive comparison sliders. Until then, the cards show treatment inspiration without claiming results.
 
-`next/image` handles sizing, AVIF/WebP and lazy loading.
+`next/image` handles responsive sizing and lazy loading; the hero is preloaded. The booking area includes a local interior photo and an expandable Google map. The local image remains available without a third-party media request during the demo.
 
 ## Reviews
 

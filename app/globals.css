@@ -158,12 +158,12 @@
 }
 
 @utility hero-rise {
-  animation: hero-rise 0.95s var(--ease-soft) backwards;
+  animation: hero-rise 0.7s var(--ease-soft) backwards;
   animation-delay: var(--d, 0ms);
 }
 
 @utility hero-mask {
-  animation: hero-mask 1.3s var(--ease-soft) 0.15s backwards;
+  animation: hero-mask 0.9s var(--ease-soft) 0.08s backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

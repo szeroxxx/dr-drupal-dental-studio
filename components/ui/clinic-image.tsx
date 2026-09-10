@@ -23,6 +23,10 @@ type ClinicImageProps = {
   /** Tinted surface only — for layouts that place their own single placeholder label. */
   bare?: boolean;
   className?: string;
+  /** Deliberate crop for each photograph. */
+  objectPosition?: string;
+  /** Stock scenes must never be presented as actual clinic photography. */
+  illustrative?: boolean;
 };
 
 /**
@@ -39,11 +43,13 @@ export function ClinicImage({
   compact = false,
   bare = false,
   className,
+  objectPosition = "50% 50%",
+  illustrative = false,
 }: ClinicImageProps) {
   return (
     <div className={cn("relative overflow-hidden", className)}>
       {src ? (
-        <Image src={src} alt={alt} fill sizes={sizes} preload={preload} className="object-cover" />
+        <Image src={src} alt={illustrative ? `${alt} — illustrative photography` : alt} fill sizes={sizes} preload={preload} className="object-cover" style={{ objectPosition }} />
       ) : bare ? (
         <div aria-hidden className={cn("absolute inset-0", tones[tone])}>
           <span className="absolute inset-0 [background-image:repeating-linear-gradient(135deg,rgb(11_111_117/0.045)_0_1px,transparent_1px_14px)]" />
@@ -65,6 +71,11 @@ export function ClinicImage({
           </span>
           {!compact && <span className="relative max-w-[18rem] text-xs leading-relaxed text-muted">{label}</span>}
         </div>
+      )}
+      {src && illustrative && (
+        <span className="absolute bottom-3 left-3 z-10 rounded-md bg-ink/75 px-2.5 py-1 text-[10px] font-medium tracking-[0.04em] text-white">
+          Illustrative photography
+        </span>
       )}
     </div>
   );

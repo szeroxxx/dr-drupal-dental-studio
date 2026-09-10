@@ -2,6 +2,7 @@ import { MapPin, Navigation, Phone } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { ClinicImage } from "@/components/ui/clinic-image";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { Script } from "@/components/ui/section-header";
 import {
@@ -9,6 +10,7 @@ import {
   defaultWhatsAppMessage,
   directionsHref,
   mapEmbedSrc,
+  media,
   sessionText,
   telHref,
   whatsappHref,
@@ -36,16 +38,23 @@ export function VisitAndBook() {
 
         <div className="flex flex-col gap-6 lg:order-1 lg:col-span-6">
           <Reveal delay={0.08} className="overflow-hidden rounded-3xl border border-line bg-white shadow-soft">
-            <div className="relative aspect-[16/11] w-full bg-canvas-deep sm:aspect-[16/10]">
-              <iframe
-                title={`Map showing ${clinic.name} in ${clinic.address.locality}, ${clinic.address.city}`}
-                src={mapEmbedSrc}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-                className="absolute inset-0 size-full border-0"
-              />
-            </div>
+            <ClinicImage src={media.location} alt="A softly lit contemporary clinical room with a reclining chair and dark cabinetry" label="A calm clinical setting" illustrative sizes="(min-width: 1024px) 50vw, 90vw" objectPosition="60% 46%" className="aspect-[16/9] w-full" />
+            <details className="group border-t border-line">
+              <summary className="flex cursor-pointer items-center justify-between gap-4 p-5 text-sm font-semibold text-brand-800 transition-colors hover:bg-brand-50">
+                <span className="flex items-center gap-2"><MapPin aria-hidden className="size-4" /> Find the studio on the map</span>
+                <span aria-hidden className="text-lg transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <div className="relative aspect-[16/10] w-full bg-canvas-deep">
+                <iframe
+                  title={`Map showing ${clinic.name} in ${clinic.address.locality}, ${clinic.address.city}`}
+                  src={mapEmbedSrc}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  className="absolute inset-0 size-full border-0"
+                />
+              </div>
+            </details>
           </Reveal>
 
           <Reveal delay={0.14} className="rounded-3xl border border-line bg-white p-7 shadow-soft md:p-9">

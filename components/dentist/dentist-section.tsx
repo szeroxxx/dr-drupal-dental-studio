@@ -25,17 +25,13 @@ export function DentistSection({ showMore = true }: { showMore?: boolean }) {
           <div aria-hidden className="absolute -left-4 -top-4 hidden size-full rounded-[2rem] border border-brand-200 sm:block" />
           <ClinicImage
             src={media.dentist}
-            alt={`${d.name}, ${d.title.toLowerCase()} at ${clinic.name}`}
-            label={`Portrait of ${d.name} at the studio`}
+            alt="A dental professional explaining oral care to a patient using a teeth model"
+            label="A conversation about dental care"
+            objectPosition="50% 62%"
+            illustrative
             sizes="(min-width: 1024px) 38vw, 90vw"
             className="relative aspect-[4/5] w-full rounded-[2rem] border border-line shadow-soft"
           />
-          <div className="absolute -bottom-7 left-5 right-5 rounded-2xl border border-line bg-white/95 p-5 shadow-lift backdrop-blur sm:left-auto sm:right-[-1.5rem] sm:w-72">
-            <p className="font-serif text-2xl font-medium leading-tight text-ink">{d.name}</p>
-            <p className="mt-1 text-sm text-muted">
-              {d.qualifications.join(", ")} · {d.title}
-            </p>
-          </div>
         </Reveal>
 
         <div className="pt-6 lg:col-span-6 lg:col-start-7 lg:pt-0">
@@ -49,7 +45,8 @@ export function DentistSection({ showMore = true }: { showMore?: boolean }) {
             }
           />
           <Reveal delay={0.08}>
-            <p className="type-lead mt-6 text-ink-soft">
+            <p className="mt-6 text-sm font-semibold text-brand-800">{d.name} · {d.qualifications.join(", ")} · {d.title}</p>
+            <p className="type-lead mt-4 text-ink-soft">
               {d.name} leads the studio&apos;s clinical care — from your first consultation to your follow-up
               visits. The approach is simple: listen properly, explain your options in plain language, and never
               rush a decision that&apos;s yours to make.
