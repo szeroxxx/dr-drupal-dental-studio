@@ -1,5 +1,12 @@
 /** Public origin of the deployed site. Set NEXT_PUBLIC_SITE_URL in production. */
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const vercelDeploymentUrl = process.env.VERCEL_URL?.trim();
+const fallbackSiteUrl = vercelDeploymentUrl
+  ? vercelDeploymentUrl.startsWith("http")
+    ? vercelDeploymentUrl
+    : `https://${vercelDeploymentUrl}`
+  : "http://localhost:3000";
+export const siteUrl = (configuredSiteUrl || fallbackSiteUrl).replace(/\/+$/, "");
 
 export function absoluteUrl(path = "/") {
   return `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
