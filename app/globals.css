@@ -1,26 +1,179 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ──────────────────────────────────────────────────────────────
+   Design tokens
+   Brand teal and ink are sampled from the clinic logo; the soft
+   canvas echoes the reference design's pale medical background.
+   ────────────────────────────────────────────────────────────── */
+@theme {
+  --color-brand-50: #eef9fa;
+  --color-brand-100: #d6f1f3;
+  --color-brand-200: #afe3e7;
+  --color-brand-300: #78cfd6;
+  --color-brand-400: #2fbac3;
+  --color-brand-500: #00adb5; /* logo teal — decorative use only */
+  --color-brand-600: #098e95;
+  --color-brand-700: #0b6f75; /* AA on white: primary actions & accent text */
+  --color-brand-800: #0c5b60;
+  --color-brand-900: #0e4a4e;
+
+  --color-ink: #17242e; /* logo navy — headings */
+  --color-ink-soft: #3a4955; /* body copy */
+  --color-muted: #5b6a75; /* secondary copy, AA on canvas */
+  --color-canvas: #f3f7f9;
+  --color-canvas-deep: #e7f0f3;
+  --color-line: #dfe8ec;
+  --color-line-strong: #c6d5dc;
+  --color-star: #f2a51a;
+
+  --radius-card: 1.125rem;
+
+  --shadow-soft: 0 1px 2px rgb(23 36 46 / 0.04), 0 6px 20px -12px rgb(23 36 46 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(23 36 46 / 0.04), 0 22px 44px -22px rgb(11 111 117 / 0.3);
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-script: var(--font-allura), cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-100);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 3px;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ──────────────────────────────────────────────────────────────
+   Type scale
+   ────────────────────────────────────────────────────────────── */
+@utility type-display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.85rem, 1.6rem + 3.9vw, 4.9rem);
+  line-height: 1.03;
+  letter-spacing: -0.015em;
+}
+
+@utility type-h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 1.7rem + 3.2vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.012em;
+}
+
+@utility type-h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 1.6rem + 2vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+@utility type-h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+}
+
+@utility type-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  line-height: 1.7;
+}
+
+@utility type-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Entrance motion for above-the-fold content.
+   Pure CSS so it runs before hydration and never delays LCP on JS.
+   ────────────────────────────────────────────────────────────── */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-mask {
+  from {
+    clip-path: circle(36% at 50% 56%);
+    opacity: 0;
+  }
+  to {
+    clip-path: circle(71% at 50% 50%);
+    opacity: 1;
+  }
+}
+
+@utility hero-rise {
+  animation: hero-rise 0.95s var(--ease-soft) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@utility hero-mask {
+  animation: hero-mask 1.3s var(--ease-soft) 0.15s backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
